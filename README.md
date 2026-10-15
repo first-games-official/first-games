@@ -1,2 +1,3 @@
 # first-games
-information
+Информация о first games. TipoVIKI.
+2 Это будет игра на хтмлке
