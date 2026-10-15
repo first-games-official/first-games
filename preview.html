@@ -1,0 +1,479 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#080b14">
+<meta name="description" content="First Games — бесплатные игры, созданные человеком вместе с ChatGPT.">
+<title>First Games — Игры для всех</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#080b14;
+  --panel:#111827;
+  --text:#f4f6ff;
+  --muted:#a0abc2;
+  --blue:#648fff;
+  --purple:#a16cff;
+  --line:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:Manrope,Arial,sans-serif;line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.container{width:min(1100px,90%);margin:auto}
+header{
+  position:sticky;top:0;z-index:10;
+  background:rgba(8,11,20,.88);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  min-height:76px;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;
+}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800}
+.logo{
+  width:43px;height:43px;display:grid;place-items:center;
+  border-radius:14px;font-size:23px;
+  background:linear-gradient(135deg,var(--blue),var(--purple));
+  box-shadow:0 0 25px #648fff44;
+}
+.gradient{
+  background:linear-gradient(100deg,#79a4ff,#bd96ff,#f0a9ff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+nav{display:flex;align-items:center;gap:23px}
+nav a{font-size:12px;color:var(--muted)}
+nav a:hover{color:white}
+.lang{
+  border:1px solid #648fff66;background:#141c30;
+  color:white;border-radius:10px;padding:9px 12px;
+  font-weight:800;font-size:12px;
+}
+.menu{display:none}
+.hero{
+  position:relative;overflow:hidden;
+  min-height:610px;display:flex;align-items:center;
+}
+.hero:before{
+  content:"";position:absolute;z-index:-1;
+  width:600px;height:600px;right:-150px;top:0;
+  background:radial-gradient(circle,#648fff35,transparent 68%);
+}
+.grid-bg{
+  position:absolute;inset:0;z-index:-1;opacity:.12;
+  background-image:linear-gradient(#fff2 1px,transparent 1px),
+  linear-gradient(90deg,#fff2 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:linear-gradient(black,transparent);
+}
+.hero-content{padding:85px 0;max-width:760px}
+.pill{
+  display:inline-block;padding:7px 13px;border-radius:30px;
+  background:#648fff18;border:1px solid #648fff55;
+  color:#c5d5ff;font-size:11px;font-weight:800;margin-bottom:25px;
+}
+h1{font-size:clamp(46px,8vw,82px);line-height:1.08;letter-spacing:-3px}
+.hero p{max-width:650px;color:var(--muted);margin:25px 0;font-size:16px}
+.buttons{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-block;padding:13px 19px;border-radius:12px;
+  font-size:13px;font-weight:800;border:1px solid var(--line);
+  transition:.2s;
+}
+.btn:hover{transform:translateY(-3px)}
+.primary{background:linear-gradient(110deg,#4e83ff,#9163ef);border:0}
+.secondary{background:#ffffff08}
+.small-note{font-size:11px;color:#7887a4;margin-top:22px}
+section{padding:85px 0}
+.dark-section{background:#0b0f1a;border-block:1px solid var(--line)}
+.kicker{font-size:11px;color:#9cb8ff;font-weight:800;letter-spacing:2px;margin-bottom:12px}
+h2{font-size:clamp(29px,5vw,44px);line-height:1.2;letter-spacing:-1.5px}
+.intro{max-width:700px;margin-bottom:38px}
+.intro p{color:var(--muted);font-size:14px;margin-top:14px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.panel{
+  background:linear-gradient(145deg,#151e32,#0e1422);
+  border:1px solid var(--line);border-radius:22px;padding:27px;
+}
+.panel h3{font-size:19px;margin-bottom:12px}
+.panel p{font-size:13px;color:var(--muted)}
+.big-icon{font-size:42px;margin-bottom:15px}
+.points{display:grid;gap:19px}
+.point{display:flex;gap:13px;align-items:flex-start}
+.point-icon{
+  min-width:40px;height:40px;display:grid;place-items:center;
+  border-radius:12px;background:#648fff20;font-size:19px;
+}
+.point strong{font-size:13px;display:block}
+.point span{font-size:12px;color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+.card{
+  border:1px solid var(--line);border-radius:20px;
+  background:#111827;overflow:hidden;transition:.25s;
+}
+.card:hover{transform:translateY(-5px);border-color:#648fff77}
+.art{
+  height:165px;display:grid;place-items:center;font-size:54px;
+  position:relative;overflow:hidden;
+}
+.art:after{
+  content:"";position:absolute;width:150px;height:150px;
+  border:1px solid #ffffff22;border-radius:50%;
+}
+.blue{background:radial-gradient(circle,#304c91,#141b32 72%)}
+.purple{background:radial-gradient(circle,#613c8d,#21162f 72%)}
+.green{background:radial-gradient(circle,#226d64,#112521 72%)}
+.card-body{padding:22px}
+.tag{
+  font-size:10px;color:#b9ceff;background:#648fff20;
+  border-radius:6px;padding:5px 8px;display:inline-block;margin-bottom:12px;
+}
+.card h3{font-size:17px;margin-bottom:8px}
+.card p{font-size:12px;color:var(--muted)}
+.card-foot{font-size:10px;color:#8592ad;border-top:1px solid var(--line);margin-top:17px;padding-top:13px}
+.banner{
+  border:1px solid #648fff44;background:#648fff0b;
+  border-radius:15px;padding:18px;color:#bac7df;
+  font-size:12px;margin-top:22px;
+}
+.steps{display:grid;gap:0}
+.step{
+  display:grid;grid-template-columns:55px 1fr;gap:17px;
+  padding:23px 0;border-bottom:1px solid var(--line);
+}
+.num{
+  width:45px;height:45px;display:grid;place-items:center;
+  border-radius:13px;background:#648fff22;color:#b9ceff;font-weight:800;
+}
+.step h3{font-size:15px;margin-bottom:5px}
+.step p{font-size:12px;color:var(--muted)}
+.values{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.value{padding:23px;border:1px solid var(--line);border-radius:17px;background:#ffffff04}
+.value .emoji{font-size:27px}
+.value h3{font-size:14px;margin:10px 0 5px}
+.value p{font-size:12px;color:var(--muted)}
+.contact{
+  text-align:center;padding:52px 25px;border:1px solid var(--line);
+  border-radius:25px;
+  background:radial-gradient(ellipse at top,#648fff26,transparent 70%),#101625;
+}
+.contact p{max-width:610px;margin:17px auto 24px;color:var(--muted);font-size:13px}
+footer{border-top:1px solid var(--line);padding:26px 0;color:#8190aa;font-size:11px}
+.footer{display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(15px);transition:opacity .6s,transform .6s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:760px){
+  .nav{flex-wrap:wrap;padding:12px 0}
+  nav{
+    display:none;order:3;width:100%;padding:12px 0;
+    flex-direction:column;align-items:flex-start;gap:15px;
+  }
+  nav.open{display:flex}
+  .menu{display:inline-block;background:#141c30;color:white;border:1px solid var(--line);border-radius:9px;padding:8px 11px}
+  .nav-right{display:flex;gap:8px;align-items:center}
+  .hero{min-height:520px}
+  .hero-content{padding:70px 0}
+  h1{letter-spacing:-2px}
+  section{padding:65px 0}
+  .about-grid,.cards,.values{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*:before,*:after{transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">
+      <span class="logo">F</span>
+      <span>FIRST <span class="gradient">GAMES</span></span>
+    </a>
+    <nav id="nav">
+      <a href="#about" data-i="navAbout">О нас</a>
+      <a href="#projects" data-i="navProjects">Проекты</a>
+      <a href="#roadmap" data-i="navRoadmap">Наш путь</a>
+      <a href="#values" data-i="navValues">Принципы</a>
+    </nav>
+    <div class="nav-right">
+      <button class="lang" id="language" aria-label="Switch language">🇬🇧 EN</button>
+      <button class="menu" id="menu" aria-label="Menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home">
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="pill" data-i="badge">🎮 НЕЗАВИСИМЫЙ ИГРОВОЙ ПРОЕКТ</div>
+      <h1 data-i="heroTitle">Игры для всех.<br><span class="gradient">Создаём вместе.</span></h1>
+      <p data-i="heroText">First Games — наш независимый проект, в котором я и ChatGPT вместе работаем над играми и программами. Мы хотим создавать хорошие бесплатные игры, доступные каждому.</p>
+      <div class="buttons">
+        <a class="btn primary" href="#projects" data-i="heroButton">🎮 Наши проекты →</a>
+        <a class="btn secondary" href="#about" data-i="aboutButton">Узнать о нас ↓</a>
+      </div>
+      <div class="small-note" data-i="heroNote">Одна идея, первые шаги и целый мир возможностей.</div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="intro reveal">
+      <div class="kicker" data-i="aboutKicker">01 / О НАС</div>
+      <h2 data-i="aboutTitle">Кто такие <span class="gradient">First Games?</span></h2>
+      <p data-i="aboutIntro">Мы создаём игры вместе: человек придумывает, выбирает и проверяет, а ChatGPT помогает разрабатывать и улучшать код.</p>
+    </div>
+
+    <div class="about-grid">
+      <article class="panel reveal">
+        <div class="big-icon">🤝</div>
+        <h3 data-i="teamTitle">Человек + ChatGPT</h3>
+        <p data-i="teamText">First Games — мой независимый игровой проект, который я разрабатываю с помощью ChatGPT. Я отвечаю за идеи, решения и тестирование, а ИИ помогает с программированием, объяснениями и поиском ошибок. Вместе мы шаг за шагом превращаем задумки в игры.</p>
+      </article>
+      <article class="panel reveal">
+        <h3 data-i="missionTitle">Зачем мы это делаем?</h3>
+        <p data-i="missionText">Мы хотим, чтобы у людей была возможность играть в интересные игры бесплатно и безопаснее. Не нужно искать сомнительные пиратские копии, когда можно попробовать легальную бесплатную игру. Мы будем стремиться делать наши проекты качественными, удобными и доступными.</p>
+        <div class="banner" data-i="missionNote">🛡️ Скачивай игры из доверенных источников. Даже бесплатная игра не гарантирует безопасность сама по себе.</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="dark-section" id="projects">
+  <div class="container">
+    <div class="intro reveal">
+      <div class="kicker" data-i="projectsKicker">02 / ПРОЕКТЫ</div>
+      <h2 data-i="projectsTitle">Большие идеи начинаются <span class="gradient">с малого.</span></h2>
+      <p data-i="projectsIntro">Наш путь начинается с небольшой игры и постепенно ведёт к новым жанрам и технологиям.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card reveal">
+        <div class="art blue">🔎</div>
+        <div class="card-body">
+          <span class="tag" data-i="planned">В ПЛАНАХ</span>
+          <h3 data-i="hiddenTitle">Hidden Object</h3>
+          <p data-i="hiddenText">Найди спрятанный предмет в комнате. Наблюдательность, детали и первые игровые механики.</p>
+          <div class="card-foot">HTML · CSS · JAVASCRIPT</div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="art purple">🕹️</div>
+        <div class="card-body">
+          <span class="tag" data-i="future">БУДУЩИЕ ИДЕИ</span>
+          <h3 data-i="pythonTitle">Игры на Python</h3>
+          <p data-i="pythonText">Эксперименты с управлением, уровнями, звуками и игровыми механиками.</p>
+          <div class="card-foot">PYTHON · PYGAME</div>
+        </div>
+      </article>
+      <article class="card reveal">
+        <div class="art green">🌍</div>
+        <div class="card-body">
+          <span class="tag" data-i="future">БУДУЩИЕ ИДЕИ</span>
+          <h3 data-i="threeDTitle">3D-миры</h3>
+          <p data-i="threeDText">Изучение трёхмерных объектов, окружения и создания игровых сцен.</p>
+          <div class="card-foot">BLENDER · UNITY · C#</div>
+        </div>
+      </article>
+    </div>
+    <div class="banner reveal" data-i="disclaimer">ℹ️ Это планы разработки, а не список уже выпущенных игр. Мы будем обновлять информацию по мере работы.</div>
+  </div>
+</section>
+
+<section id="roadmap">
+  <div class="container">
+    <div class="intro reveal">
+      <div class="kicker" data-i="roadmapKicker">03 / НАШ ПУТЬ</div>
+      <h2 data-i="roadmapTitle">От идеи <span class="gradient">до игры.</span></h2>
+      <p data-i="roadmapIntro">Будем учиться постепенно, пробовать новые инструменты и улучшать каждый проект.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="num">01</div><div><h3 data-i="step1Title">Первая веб-игра</h3><p data-i="step1Text">Создаём игру на HTML, CSS и JavaScript, проверяем её и исправляем ошибки.</p></div></div>
+      <div class="step reveal"><div class="num">02</div><div><h3 data-i="step2Title">Python и Pygame</h3><p data-i="step2Text">Изучаем программирование и делаем новые игровые прототипы.</p></div></div>
+      <div class="step reveal"><div class="num">03</div><div><h3 data-i="step3Title">3D и Blender</h3><p data-i="step3Text">Создаём модели, материалы, освещение и игровые окружения.</p></div></div>
+      <div class="step reveal"><div class="num">04</div><div><h3 data-i="step4Title">Unity и большие проекты</h3><p data-i="step4Text">Осваиваем Unity и C#, чтобы со временем пробовать более сложные игры.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="dark-section" id="values">
+  <div class="container">
+    <div class="intro reveal">
+      <div class="kicker" data-i="valuesKicker">04 / НАШИ ПРИНЦИПЫ</div>
+      <h2 data-i="valuesTitle">Бесплатно. Оригинально. <span class="gradient">Для всех.</span></h2>
+      <p data-i="valuesIntro">Мы хотим, чтобы наши игры приносили радость, а их создание помогало нам становиться лучше.</p>
+    </div>
+    <div class="values">
+      <article class="value reveal"><div class="emoji">🆓</div><h3 data-i="value1Title">Бесплатный доступ</h3><p data-i="value1Text">Стремимся создавать игры, за которые не нужно платить.</p></article>
+      <article class="value reveal"><div class="emoji">🛡️</div><h3 data-i="value2Title">Безопасность</h3><p data-i="value2Text">Публикуем проекты через понятные источники и стараемся проверять сборки.</p></article>
+      <article class="value reveal"><div class="emoji">💡</div><h3 data-i="value3Title">Свои идеи</h3><p data-i="value3Text">Разрабатываем оригинальные задумки и уважаем чужие авторские права.</p></article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="contact reveal">
+      <div class="kicker" data-i="endingKicker">НАЧАЛО ПУТИ</div>
+      <h2 data-i="endingTitle">Это только <span class="gradient">первая глава.</span></h2>
+      <p data-i="endingText">First Games начинает свой путь. Впереди обучение, первые релизы и новые идеи. Мы будем создавать, тестировать и улучшать игры шаг за шагом.</p>
+      <a class="btn primary" href="#home" data-i="topButton">Вернуться наверх ↑</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer">
+    <div><strong>FIRST GAMES</strong> · <span data-i="footerText">Независимый игровой проект</span></div>
+    <div>© <span id="year"></span> First Games</div>
+  </div>
+</footer>
+
+<script>
+const translations = {
+  ru: {
+    navAbout:"О нас",navProjects:"Проекты",navRoadmap:"Наш путь",navValues:"Принципы",
+    badge:"🎮 НЕЗАВИСИМЫЙ ИГРОВОЙ ПРОЕКТ",
+    heroTitle:'Игры для всех.<br><span class="gradient">Создаём вместе.</span>',
+    heroText:"First Games — наш независимый проект, в котором я и ChatGPT вместе работаем над играми и программами. Мы хотим создавать хорошие бесплатные игры, доступные каждому.",
+    heroButton:"🎮 Наши проекты →",aboutButton:"Узнать о нас ↓",
+    heroNote:"Одна идея, первые шаги и целый мир возможностей.",
+    aboutKicker:"01 / О НАС",aboutTitle:'Кто такие <span class="gradient">First Games?</span>',
+    aboutIntro:"Мы создаём игры вместе: человек придумывает, выбирает и проверяет, а ChatGPT помогает разрабатывать и улучшать код.",
+    teamTitle:"Человек + ChatGPT",
+    teamText:"First Games — мой независимый игровой проект, который я разрабатываю с помощью ChatGPT. Я отвечаю за идеи, решения и тестирование, а ИИ помогает с программированием, объяснениями и поиском ошибок. Вместе мы шаг за шагом превращаем задумки в игры.",
+    missionTitle:"Зачем мы это делаем?",
+    missionText:"Мы хотим, чтобы у людей была возможность играть в интересные игры бесплатно и безопаснее. Не нужно искать сомнительные пиратские копии, когда можно попробовать легальную бесплатную игру. Мы будем стремиться делать наши проекты качественными, удобными и доступными.",
+    missionNote:"🛡️ Скачивай игры из доверенных источников. Даже бесплатная игра не гарантирует безопасность сама по себе.",
+    projectsKicker:"02 / ПРОЕКТЫ",projectsTitle:'Большие идеи начинаются <span class="gradient">с малого.</span>',
+    projectsIntro:"Наш путь начинается с небольшой игры и постепенно ведёт к новым жанрам и технологиям.",
+    planned:"В ПЛАНАХ",future:"БУДУЩИЕ ИДЕИ",hiddenTitle:"Hidden Object",
+    hiddenText:"Найди спрятанный предмет в комнате. Наблюдательность, детали и первые игровые механики.",
+    pythonTitle:"Игры на Python",pythonText:"Эксперименты с управлением, уровнями, звуками и игровыми механиками.",
+    threeDTitle:"3D-миры",threeDText:"Изучение трёхмерных объектов, окружения и создания игровых сцен.",
+    disclaimer:"ℹ️ Это планы разработки, а не список уже выпущенных игр. Мы будем обновлять информацию по мере работы.",
+    roadmapKicker:"03 / НАШ ПУТЬ",roadmapTitle:'От идеи <span class="gradient">до игры.</span>',
+    roadmapIntro:"Будем учиться постепенно, пробовать новые инструменты и улучшать каждый проект.",
+    step1Title:"Первая веб-игра",step1Text:"Создаём игру на HTML, CSS и JavaScript, проверяем её и исправляем ошибки.",
+    step2Title:"Python и Pygame",step2Text:"Изучаем программирование и делаем новые игровые прототипы.",
+    step3Title:"3D и Blender",step3Text:"Создаём модели, материалы, освещение и игровые окружения.",
+    step4Title:"Unity и большие проекты",step4Text:"Осваиваем Unity и C#, чтобы со временем пробовать более сложные игры.",
+    valuesKicker:"04 / НАШИ ПРИНЦИПЫ",valuesTitle:'Бесплатно. Оригинально. <span class="gradient">Для всех.</span>',
+    valuesIntro:"Мы хотим, чтобы наши игры приносили радость, а их создание помогало нам становиться лучше.",
+    value1Title:"Бесплатный доступ",value1Text:"Стремимся создавать игры, за которые не нужно платить.",
+    value2Title:"Безопасность",value2Text:"Публикуем проекты через понятные источники и стараемся проверять сборки.",
+    value3Title:"Свои идеи",value3Text:"Разрабатываем оригинальные задумки и уважаем чужие авторские права.",
+    endingKicker:"НАЧАЛО ПУТИ",endingTitle:'Это только <span class="gradient">первая глава.</span>',
+    endingText:"First Games начинает свой путь. Впереди обучение, первые релизы и новые идеи. Мы будем создавать, тестировать и улучшать игры шаг за шагом.",
+    topButton:"Вернуться наверх ↑",footerText:"Независимый игровой проект"
+  },
+  en: {
+    navAbout:"About",navProjects:"Projects",navRoadmap:"Our journey",navValues:"Our values",
+    badge:"🎮 INDEPENDENT GAME PROJECT",
+    heroTitle:'Games for everyone.<br><span class="gradient">Made together.</span>',
+    heroText:"First Games is my independent project, where ChatGPT and I work together on games and software. We want to create good, free games that everyone can enjoy.",
+    heroButton:"🎮 Our projects →",aboutButton:"About us ↓",
+    heroNote:"One idea, the first steps, and a world of possibilities.",
+    aboutKicker:"01 / ABOUT US",aboutTitle:'Who are <span class="gradient">First Games?</span>',
+    aboutIntro:"We make games together: a human creates ideas, makes decisions and tests, while ChatGPT helps write and improve code.",
+    teamTitle:"Human + ChatGPT",
+    teamText:"First Games is my independent game development project, created with help from ChatGPT. I contribute the ideas, decisions and testing, while AI helps with programming, explanations and debugging. Together, we turn ideas into games one step at a time.",
+    missionTitle:"Why are we doing this?",
+    missionText:"We want people to have the chance to enjoy games for free and with greater confidence in where they get them. Instead of searching for questionable pirated copies, players can try legitimate free games. We aim to make our projects enjoyable, accessible and well made.",
+    missionNote:"🛡️ Download games from trusted sources. No game is automatically safe just because it is free.",
+    projectsKicker:"02 / PROJECTS",projectsTitle:'Big ideas start <span class="gradient">small.</span>',
+    projectsIntro:"Our journey starts with a small game and gradually explores new genres and technologies.",
+    planned:"PLANNED",future:"FUTURE IDEAS",hiddenTitle:"Hidden Object",
+    hiddenText:"Find a hidden object in a room. Observation, details and our first game mechanics.",
+    pythonTitle:"Python Games",pythonText:"Experiments with controls, levels, sound effects and gameplay mechanics.",
+    threeDTitle:"3D Worlds",threeDText:"Learning to create 3D objects, environments and game scenes.",
+    disclaimer:"ℹ️ These are development plans, not a list of released games. We will update this page as work progresses.",
+    roadmapKicker:"03 / OUR JOURNEY",roadmapTitle:'From an idea <span class="gradient">to a game.</span>',
+    roadmapIntro:"We will learn step by step, explore new tools and improve every project.",
+    step1Title:"First web game",step1Text:"Build a game with HTML, CSS and JavaScript, test it and fix bugs.",
+    step2Title:"Python and Pygame",step2Text:"Learn programming and build new game prototypes.",
+    step3Title:"3D and Blender",step3Text:"Create models, materials, lighting and game environments.",
+    step4Title:"Unity and bigger projects",step4Text:"Learn Unity and C# and gradually explore more advanced games.",
+    valuesKicker:"04 / OUR VALUES",valuesTitle:'Free. Original. <span class="gradient">For everyone.</span>',
+    valuesIntro:"We want our games to bring joy while helping us grow as developers.",
+    value1Title:"Free to play",value1Text:"We aim to create games that people can enjoy without paying.",
+    value2Title:"Safety",value2Text:"We use clear distribution channels and do our best to test our builds.",
+    value3Title:"Original ideas",value3Text:"We develop our own ideas and respect other creators' rights.",
+    endingKicker:"THE BEGINNING",endingTitle:'This is only <span class="gradient">chapter one.</span>',
+    endingText:"First Games is just getting started. Learning, first releases and new ideas lie ahead. We will create, test and improve our games one step at a time.",
+    topButton:"Back to top ↑",footerText:"Independent game project"
+  }
+};
+
+let currentLanguage = "ru";
+const languageButton = document.getElementById("language");
+
+function setLanguage(language) {
+  currentLanguage = language;
+  document.documentElement.lang = language;
+  document.querySelectorAll("[data-i]").forEach(element => {
+    const key = element.dataset.i;
+    if (translations[language][key] !== undefined) {
+      element.innerHTML = translations[language][key];
+    }
+  });
+  languageButton.textContent = language === "ru" ? "🇬🇧 EN" : "🇷🇺 RU";
+  languageButton.setAttribute("aria-label",
+    language === "ru" ? "Switch to English" : "Переключить на русский");
+  document.title = language === "ru"
+    ? "First Games — Игры для всех"
+    : "First Games — Games for Everyone";
+  try { localStorage.setItem("firstGamesLanguage", language); } catch (error) {}
+}
+
+languageButton.addEventListener("click", () => {
+  setLanguage(currentLanguage === "ru" ? "en" : "ru");
+});
+
+const menu = document.getElementById("menu");
+const nav = document.getElementById("nav");
+menu.addEventListener("click", () => nav.classList.toggle("open"));
+nav.querySelectorAll("a").forEach(link => {
+  link.addEventListener("click", () => nav.classList.remove("open"));
+});
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:0.1});
+  document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+} else {
+  document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+}
+
+try {
+  const savedLanguage = localStorage.getItem("firstGamesLanguage");
+  if (savedLanguage === "en") setLanguage("en");
+} catch (error) {}
+</script>
+</body>
+</html>
